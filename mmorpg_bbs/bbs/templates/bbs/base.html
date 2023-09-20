@@ -1,0 +1,57 @@
+{% extends "layout/default.html" %}
+
+{% block login_logout_buttons %}
+    {% if user.is_authenticated %}
+        <div class="dropdown">
+            <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <img class="img-fluid img-thumbnail rounded-circle" src="{{ user.profile.avatar.url }}" width="25" />
+                &nbsp;
+                {{user.username}}
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="{% url 'user_profiles:profile' %}">
+                    <i class="bi bi-person"></i>
+                    Profile
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <i class="bi bi-door-closed"></i>
+                    Sign Out
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="exampleModalLabel">Signing out</h1>
+                </div>
+                <div class="modal-body">
+                  Are you sure you want to sign out?
+                </div>
+                <div class="modal-footer">
+                  <a class="btn btn-outline-success" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i>
+                    Cancel
+                  </a>
+                  <a class="btn btn-outline-danger" href="{% url 'sign_out' %}">
+                    <i class="bi bi-door-closed"></i>
+                    Sign out
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+
+    {% else %}
+        <a class="btn btn-outline-primary" href="{% url 'sign_in' %}">Sign In</a>
+    {% endif %}
+{% endblock %}

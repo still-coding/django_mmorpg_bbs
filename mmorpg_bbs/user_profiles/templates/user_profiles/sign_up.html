@@ -1,0 +1,28 @@
+{% extends "layout/default.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+Sign Up
+{% endblock title %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-botton mb-4">Join our awesome MMORPG ads portal today!</legend>
+                {{ form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up!</button>
+            </div>
+        </form>
+        <br>
+        <div>
+            <small class="text-muted">
+                Already Have an Account? <a class="ml-2" href="{% url 'sign_in' %}">Sign In</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,82 @@
+{% extends 'bbs/base.html' %}
+
+
+{% block nav_search_class %}active{% endblock %}
+
+{% block title %}
+Search
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <h2>Found: {{ filter.qs|length }}</h2>
+    <hr>
+    {% if ads %}
+
+        <form method="GET">
+            {{ filter.form|crispy }}
+            <input class="btn btn-primary" type="submit" value="Найти">
+        </form>
+
+        <table class="table">
+            <tr>
+                <th scope="col">
+                    User
+                </th>
+                <th scope="col">
+                    Category
+                </th>
+                <th scope="col">
+                    Title
+                </th>
+                <th scope="col">
+                    Posted
+                </th>
+                <th scope="col">
+                    Price
+                </th>
+                <th scope="col">
+                    Actions
+                </th>         
+            </tr>
+            {% for ad in filter.qs %}
+            <tr>
+                <td>{{ ad.user.username }}</td>
+                <td>
+                    {{ ad.get_category_display }}
+                </td>
+                <td>
+                    <a href="{% url 'bbs:detail' ad.id %}">{{ ad.title }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'bbs:detail' ad.id %}">{{ ad.created|date:'d M Y H:s' }}</a>
+                </td>
+                <td>{{ ad.price }}</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary m-1" href="{% url 'bbs:detail' ad.id %}" role="button">
+                        <i class="bi bi-binoculars"></i>
+                        View
+                    </a>
+                    {% if user == ad.user %}
+                        <a class="btn btn-sm btn-outline-warning m-1" href="{% url 'bbs:edit' ad.id %}" role="button">
+                            <i class="bi bi-pencil"></i>
+                            Edit
+                        </a>
+                        <a class="btn btn-sm btn-outline-danger m-1" href="{% url 'bbs:delete' ad.id %}" role="button">
+                            <i class="bi bi-trash"></i>
+                            Delete
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" align="center">Nothing found!</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>Nothing to show =(</h2>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello, {{ username }}!</h1>
+    <h2>New response to your ad {{ad_title}} from {{responder_username}}!</h2>
+    <br>
+    <p> {{ response_text }} </p>
+    Open: <a href="http://127.0.0.1:8000{% url 'bbs:detail' pk=ad_pk %}">http://127.0.0.1:8000{% url 'bbs:detail' pk=ad_pk %}</a>
+</body>
+</html>

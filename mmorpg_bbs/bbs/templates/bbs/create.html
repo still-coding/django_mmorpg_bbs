@@ -1,0 +1,27 @@
+{% extends 'bbs/base.html' %} 
+
+{% block title %} 
+{{ caption }}
+{% endblock title %} 
+
+{% block nav_add_class %}active{% endblock %}
+
+{% block content %}
+
+<h3>{{ caption }}</h3>
+
+{% load crispy_forms_tags %}
+
+
+
+<form class="form" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  {{form_ad|crispy}}
+  <br><br>
+  {{form_images|crispy}}
+  <input class="btn btn-success my-3" type="submit" value="{{ caption }}"/>
+</form>
+
+
+
+{% endblock content %}

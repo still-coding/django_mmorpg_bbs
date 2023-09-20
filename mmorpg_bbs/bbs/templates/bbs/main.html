@@ -1,0 +1,74 @@
+{% extends 'bbs/base.html' %}
+
+{% block nav_main_class %}active{% endblock %}
+
+{% block title %}
+MMORPG Ad Portal
+{% endblock title %}
+
+{% block content %}
+    <h1>MMORPG Ad Portal</h1>
+    <!-- <h2>Общее число постов: {{ posts|length }}</h2> -->
+    <h2>Total ad count: {{ page_obj.paginator.count }}</h2>
+    {% if is_paginated %} <h4>Page: {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}</h4> {% endif %}
+    <hr>
+    {% if ads %}
+        <table class="table">
+            <tr>
+                <th scope="col">
+                    User
+                </th>
+                <th scope="col">
+                    Category
+                </th>
+                <th scope="col">
+                    Title
+                </th>
+                <th scope="col">
+                    Posted
+                </th>
+                <th scope="col">
+                    Price
+                </th>
+                <th scope="col">
+                    Actions
+                </th>         
+            </tr>
+            {% for ad in ads %}
+            <tr>
+                <td>{{ ad.user.username }}</td>
+                <td>
+                    {{ ad.get_category_display }}
+                </td>
+                <td>
+                    <a href="{% url 'bbs:detail' ad.id %}">{{ ad.title }}</a>
+                </td>
+                <td>
+                    <a href="{% url 'bbs:detail' ad.id %}">{{ ad.created|date:'d M Y H:s' }}</a>
+                </td>
+                <td>{{ ad.price }}</td>
+                <td>
+                    <a class="btn btn-sm btn-outline-primary m-1" href="{% url 'bbs:detail' ad.id %}" role="button">
+                        <i class="bi bi-binoculars"></i>
+                        View
+                    </a>
+                    {% if user == ad.user %}
+                        <a class="btn btn-sm btn-outline-warning m-1" href="{% url 'bbs:edit' ad.id %}" role="button">
+                            <i class="bi bi-pencil"></i>
+                            Edit
+                        </a>
+                        <a class="btn btn-sm btn-outline-danger m-1" href="{% url 'bbs:delete' ad.id %}" role="button">
+                            <i class="bi bi-trash"></i>
+                            Delete
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br>
+        {% include 'bbs/parts/paginator.html' %}
+    {% else %}
+        <h2>Nothing to show =(</h2>
+    {% endif %}
+{% endblock content %}

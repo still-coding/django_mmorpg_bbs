@@ -1,0 +1,28 @@
+{% extends 'bbs/base.html' %} 
+
+{% block title %} 
+  Delete ad
+{% endblock title %} 
+
+{% block content %}
+
+<h3>Delete ad?</h3>
+<div class="card">
+    <div class="card-header">
+      <h3>{{ ad.title }}</h3>
+      <h4>Posted: {{ ad.created|date:'d-m-Y H:s' }}</h4>
+      <div>
+        Category: <span class="badge bg-info">{{ ad.get_category_display }}</span>
+        <br>
+        User: <span class="badge bg-info">{{ ad.user.username }}</span>
+        <br>
+      </div>
+    </div>
+    <div class="card-body">{{ ad.text }}</div>
+  </div>
+<form method="POST">
+  {% csrf_token %}
+  <input class="btn btn-danger my-3" type="submit" value="Delete" />
+</form>
+
+{% endblock content %}

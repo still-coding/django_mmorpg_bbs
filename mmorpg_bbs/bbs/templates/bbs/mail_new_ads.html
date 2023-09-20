@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Hello, {{ username }}!</h1>
+    <h2>New ads on portal for {{mailing_period}} day(s)</h2>
+    {% for ad in ads %}
+    <h4>{{ ad.title }}</h4>
+    <h5>Category: {{ ad.get_category_display }}</h5>
+    <h5>Price: {{ ad.price }}</h5>
+    Открыть: <a href="http://127.0.0.1:8000{% url 'bbs:detail' pk=ad.pk %}">http://127.0.0.1:8000{% url 'bbs:detail' pk=ad.pk %}</a>
+    <hr>
+    {% endfor %}
+</body>
+</html>

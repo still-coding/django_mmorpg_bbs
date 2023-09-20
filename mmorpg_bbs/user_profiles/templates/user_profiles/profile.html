@@ -1,0 +1,40 @@
+{% extends 'bbs/base.html' %}
+
+{% block title %}
+Profile: {{ user.username }}
+{% endblock title %}
+
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container">
+    <div class="content-section">
+        <div class="row">
+            <div class="col-4">
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ user.profile.avatar.url }}" class="card-img-top img-thumbnail rounded-circle" alt="Profile avatar"/>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ user.username }}</h5>
+                        <p class="text-secondary">Email: {{ user.email }}</p>
+                        <p class="text-secondary">Mailing period: {{ user.profile.mailing_period }}</p>
+                    </div>
+                </div>    
+            </div>
+            <div class="col-6">
+
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <fieldset class="form-group"> 
+                        <legend class="border-botton ">Update your profile</legend>          
+                            {{ u_form|crispy }}
+                            {{ p_form|crispy }}
+                    </fieldset>
+                    <div class="form-group mb-4">
+                        <button class="btn btn-outline-info" type="submit">Update</button>
+                    </div>
+                    </form> 
+            
+            </div>        
+        </div>
+    </div> 
+</div>  
+{% endblock content %}
