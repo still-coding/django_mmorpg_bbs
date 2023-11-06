@@ -1,4 +1,4 @@
-# moduleD13_project
+# django_mmorpg_bbs
 
 MMORPG BBS Site
 
